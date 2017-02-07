@@ -1,6 +1,6 @@
-# Project 1 - *Name of App Here*
+# Project 1 - *Flicks*
 
-**Name of your app** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flicks** is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **15** hours spent in total
 
@@ -27,8 +27,8 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. Learn how to implement bottom bar navigation
+2. Learn how to implement a "cleaner way" to deal with errors or actually learn to deal with errors in general.
 
 ## Video Walkthrough 
 
@@ -42,9 +42,11 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 
+I did not change the view of the story builder from Iphone 7 to Iphone 5 so for a long time my positioning was way off. 
+
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright [2017] [Eduardo Carrillo]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
