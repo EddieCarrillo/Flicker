@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import AVKit
+import MediaPlayer
 
-class DetailViewController: UIViewController {
+
+
+class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -17,11 +21,27 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var infoView: UIView!
     
     var movie: NSDictionary!
+   
     
+   
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       /*
+        var url = URL(string: "https://www.youtube.com/embed/aTNJtEXYsyw")
+        var playViewController : AVPlayerViewController = AVPlayerViewController()
+        playViewController.view.frame = self.view.bounds
+        
+        var player : AVPlayer = AVPlayer(url: url!)
+        playViewController.player = player
+        
+        
+        self.view.addSubview(playViewController.view)
+        player.play()
+        */
+        
+        
         
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
         
