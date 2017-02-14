@@ -28,6 +28,9 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if (endpoint == nil){
+            endpoint = "now_playing"
+        }
         
         filteredData = movies
         errorButton.isUserInteractionEnabled = true
@@ -52,7 +55,6 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if let filteredData = filteredData {
@@ -113,7 +115,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     func sendRequest(){
         //Network request set up
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(endpoint!)?api_key=\(apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         // Configure session so that completion handler is executed on main UI thread
