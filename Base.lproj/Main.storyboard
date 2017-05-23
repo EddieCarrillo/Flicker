@@ -60,7 +60,7 @@
                                         </view>
                                         <connections>
                                             <outlet property="posterView" destination="Sjg-25-DXR" id="mOz-jp-CsB"/>
-                                            <segue destination="4Uo-28-g6I" kind="push" id="7CG-VY-qpP"/>
+                                            <segue destination="4Uo-28-g6I" kind="push" id="RIJ-bA-vIL"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -118,6 +118,11 @@
                                         <rect key="frame" x="0.0" y="-56" width="320" height="508"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <webView contentMode="scaleToFill" id="bD4-eY-u5x">
+                                        <rect key="frame" x="40" y="130" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </webView>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -130,6 +135,7 @@
                         <outlet property="posterView" destination="fDZ-W2-5YN" id="pbf-uU-Stl"/>
                         <outlet property="scrollView" destination="YEF-z8-GXV" id="PM0-tQ-qve"/>
                         <outlet property="titleLabel" destination="FxM-fp-DTW" id="Z0r-53-lNZ"/>
+                        <outlet property="videoView" destination="bD4-eY-u5x" id="6ed-MT-qUN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rBu-un-U2t" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -139,8 +145,9 @@
         <!--Navigation Controller-->
         <scene sceneID="VCK-an-rU1">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nS7-jW-F1Q" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MovieNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="nS7-jW-F1Q" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jwv-Dt-Sq9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

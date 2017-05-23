@@ -38,6 +38,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         //Let this controller be in charge of manipulating tableview
         collectionView.dataSource = self;
         collectionView.delegate = self;
+        
         searchBar.delegate = self
      
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
@@ -122,7 +123,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
             if let data = data {
                 if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                    print(dataDictionary)
+                  
                     self.movies = dataDictionary["results"] as! [NSDictionary]
                     self.filteredData = self.movies
                     //Update the collectionview with its new data
