@@ -77,7 +77,24 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         let movie = self.filteredData![indexPath.row]
         if let posterPath = movie["poster_path"] as? String{
         let imageUrl = URL(string: baseUrl + posterPath)
-            cell.posterView.setImageWith(imageUrl!)
+            
+            let imageRequest = URLRequest(url: imageUrl!)
+            cell.posterView.setImageWith(imageRequest, placeholderImage: nil, success: { (request: URLRequest, response:HTTPURLResponse?, image: UIImage) in
+                //Image response will be nil if the image is cached.
+                if response != nil {
+                    print("Image was not cached, so fade in image.")
+                    cell.posterView.alpha = 0.0
+                    cell.posterView.image = image
+                    
+                    UIView.animate(withDuration: 0.3, animations: { 
+                        cell.posterView.alpha = 1.0
+                    })
+                }else { //Image came from the cache
+                    cell.posterView.image = image
+                }
+            }, failure: { (request: URLRequest, response: HTTPURLResponse?, error: Error) in
+                print("[ERROR] \(error)")
+            })
         }
         
         print("collectionView cellForItemAt function called!")
