@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="nS7-jW-F1Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11761" systemVersion="15G1611" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="nS7-jW-F1Q">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -85,7 +85,7 @@
         <scene sceneID="JUA-M0-NmQ">
             <objects>
                 <viewController id="4Uo-28-g6I" customClass="DetailViewController" customModule="MovieViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="cX2-RI-IT1">
+                    <view key="view" contentMode="scaleToFill" id="cX2-RI-IT1" customClass="DetailMovieView" customModule="MovieViewer" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -127,14 +127,17 @@
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="infoView" destination="OhT-5V-3Pk" id="9Ku-XP-C4j"/>
+                            <outlet property="overviewLabel" destination="0xL-29-67f" id="QDp-jD-10E"/>
+                            <outlet property="posterView" destination="fDZ-W2-5YN" id="CXp-L6-yzP"/>
+                            <outlet property="scrollView" destination="YEF-z8-GXV" id="TZ3-1E-msL"/>
+                            <outlet property="titleLabel" destination="FxM-fp-DTW" id="xPw-GD-rsx"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="ChO-ma-DlY"/>
                     <connections>
-                        <outlet property="infoView" destination="OhT-5V-3Pk" id="AQx-Ar-gT4"/>
-                        <outlet property="overviewLabel" destination="0xL-29-67f" id="NIM-nm-WsJ"/>
-                        <outlet property="posterView" destination="fDZ-W2-5YN" id="pbf-uU-Stl"/>
-                        <outlet property="scrollView" destination="YEF-z8-GXV" id="PM0-tQ-qve"/>
-                        <outlet property="titleLabel" destination="FxM-fp-DTW" id="Z0r-53-lNZ"/>
+                        <outlet property="detailView" destination="cX2-RI-IT1" id="VBl-v6-ef6"/>
                         <outlet property="videoView" destination="bD4-eY-u5x" id="6ed-MT-qUN"/>
                     </connections>
                 </viewController>

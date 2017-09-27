@@ -44,6 +44,10 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         //This class implements search bar functions
         searchBar.delegate = self
      
+        self.searchBar.barTintColor = UIColor.black
+        self.searchBar.tintColor =  UIColor(red: 255/255.0, green: 215.0/255, blue: 0/255, alpha: 1.0)
+        
+        
         initUIRefreshControl()
         
         SVProgressHUD.show()
@@ -71,9 +75,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseId, for: indexPath as IndexPath) as! MovieCell
-        
-        
-        
+      
         let movie = Movie(jsonMap: self.filteredData![indexPath.row])
           
         cell.movie = movie
@@ -190,8 +192,7 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         detailViewController.movie = movie
         
         print("prepare for seque called")
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
     }
     
 

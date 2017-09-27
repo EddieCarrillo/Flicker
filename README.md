@@ -1,6 +1,6 @@
-# Project 2 - *MovieViewer*
+# Project 2 - *Flicker*
 
-**Name of your app** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flicker** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **12** hours spent in total
 
@@ -14,6 +14,8 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
+- [x] Fade in images loaded from the network. (If not cached.)
+- [x] User can search for a movie.
 - [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
 - [ ] Customize the navigation bar.
 
@@ -21,7 +23,7 @@ The following **additional** features are implemented:
 
 - [ ] List anything else that you can get done to improve the app functionality!
 
-Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
+
 
 1. How to include media like videos in a clean way
 2. How track progress of networking
