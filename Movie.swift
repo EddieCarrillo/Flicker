@@ -15,11 +15,11 @@ class Movie {
     var posterPath: String?
     var overview: String?
     var originalTitle: String?
-    var popularity: Int?
+    var popularity: Double?
     var releaseDate: String?
     var title: String?
-    var voteAverage: Int?
-    var voteCount: Int?
+    var voteAverage: Double?
+    var voteCount: Double?
     var originalLanguage: String?
     var genreIds: [Int]?
     var backdropPath: String?
@@ -40,7 +40,7 @@ class Movie {
         }else {
              print("Could not extract backdrop path from JSON")
         }
-        if let genreIds = jsonMap["genre_ids"] as? [Int] {
+        if let genreIds = jsonMap["genre_ids"] as? [Double] {
             self.genreIds = genreIds
         }else {
             print("Could not extract genre ids  from JSON")
@@ -60,7 +60,7 @@ class Movie {
         }else {
             print("Could not extract overview from JSON")
         }
-        if let popularity = jsonMap["popularity"] as? Int {
+        if let popularity = jsonMap["popularity"] as? Double {
             self.popularity = popularity
         }else {
             print("Could not extract popularity from JSON")
@@ -70,7 +70,7 @@ class Movie {
         }else {
             print("Could not extract release date")
         }
-        if let voteAverage = jsonMap["vote_average"] as? Int {
+        if let voteAverage = jsonMap["vote_average"] as? Double {
             self.voteAverage = voteAverage
         }else {
             print("Could not extract vote average.")
