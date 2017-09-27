@@ -15,11 +15,13 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
 {
    
+    
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var navBar: UINavigationItem!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet var backgroundView: UIView!
     @IBOutlet weak var errorButton: UIButton!
+    
     
     var movies : [NSDictionary]?
     var endpoint : String!
@@ -31,25 +33,24 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         if (endpoint == nil){
             endpoint = "now_playing"
         }
-        
+        //Initially data is unfiltered
         filteredData = movies
+        
         errorButton.isUserInteractionEnabled = true
         
         //Let this controller be in charge of manipulating tableview
         collectionView.dataSource = self;
         collectionView.delegate = self;
-        
+        //This class implements search bar functions
         searchBar.delegate = self
      
-        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        initUIRefreshControl()
         
-        collectionView.insertSubview(refreshControl, at: 0)
         SVProgressHUD.show()
         SVProgressHUD.setOffsetFromCenter(UIOffsetMake(0.0, 0.0))
         
 
-        refreshControlAction(refreshControl)
-        // Do any additional setup after loading the view.    
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,35 +70,14 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath as IndexPath) as! MovieCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseId, for: indexPath as IndexPath) as! MovieCell
         
         
-        let baseUrl = "https://image.tmdb.org/t/p/w500"
         
-        let movie = self.filteredData![indexPath.row]
-        if let posterPath = movie["poster_path"] as? String{
-        let imageUrl = URL(string: baseUrl + posterPath)
-            
-            let imageRequest = URLRequest(url: imageUrl!)
-            cell.posterView.setImageWith(imageRequest, placeholderImage: nil, success: { (request: URLRequest, response:HTTPURLResponse?, image: UIImage) in
-                //Image response will be nil if the image is cached.
-                if response != nil {
-                    print("Image was not cached, so fade in image.")
-                    cell.posterView.alpha = 0.0
-                    cell.posterView.image = image
-                    
-                    UIView.animate(withDuration: 0.3, animations: { 
-                        cell.posterView.alpha = 1.0
-                    })
-                }else { //Image came from the cache
-                    cell.posterView.image = image
-                }
-            }, failure: { (request: URLRequest, response: HTTPURLResponse?, error: Error) in
-                print("[ERROR] \(error)")
-            })
-        }
+        let movie = Movie(jsonMap: self.filteredData![indexPath.row])
+          
+        cell.movie = movie
         
-        print("collectionView cellForItemAt function called!")
         
         return cell
     }
@@ -130,44 +110,71 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
-    func sendRequest(){
-        //Network request set up
-        let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/\(endpoint!)?api_key=\(apiKey)")!
-        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        // Configure session so that completion handler is executed on main UI thread
-        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-            if let data = data {
-                if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                  
-                    self.movies = dataDictionary["results"] as! [NSDictionary]
-                    self.filteredData = self.movies
-                    //Update the collectionview with its new data
-                    self.collectionView.reloadData()
-                    self.refreshControl.endRefreshing()
-                    print("\n\nData is updated\n\n")
-                    SVProgressHUD.dismiss()
-                    self.errorButton.isHidden = true
-                }
-            }else if let error = error{
-                self.errorButton.isHidden = false
-                self.errorButton.isHighlighted = true
+    
+    
+    func loadMovieImage(posterPath: String, for cell: MovieCell){
+        let baseUrl = "https://image.tmdb.org/t/p/w500"
+        let imageUrl = URL(string: baseUrl + posterPath)
+        
+        let imageRequest = URLRequest(url: imageUrl!)
+        cell.posterView.setImageWith(imageRequest, placeholderImage: nil, success: { (request: URLRequest, response:HTTPURLResponse?, image: UIImage) in
+            //Image response will be nil if the image is cached.
+            if response != nil {
+                print("Image was not cached, so fade in image.")
+                cell.posterView.alpha = 0.0
+                cell.posterView.image = image
                 
-                self.backgroundView.bringSubview(toFront: self.errorButton)
-                 SVProgressHUD.show()
-                self.refreshControl.endRefreshing()
-                print("\n\nNetwork error has occurred\n\n")
-                
+                UIView.animate(withDuration: 0.3, animations: {
+                    cell.posterView.alpha = 1.0
+                })
+            }else { //Image came from the cache
+                cell.posterView.image = image
             }
+        }, failure: { (request: URLRequest, response: HTTPURLResponse?, error: Error) in
+            print("[ERROR] \(error)")
+        })
+    }
+    
+    func sendRequest(){
+        
+        
+        let api = NetworkAPI.sharedInstance
+        
+        api.getMovies(endpoint: self.endpoint, successHandler: { (movies: [NSDictionary]) in
+            self.movies = movies
+            //Success
+            self.filteredData = self.movies
+            //Update the collectionview with its new data
+            self.collectionView.reloadData()
+            self.refreshControl.endRefreshing()
+            print("\n\nData is updated\n\n")
+            SVProgressHUD.dismiss()
+            self.errorButton.isHidden = true
+        }) { (error: Error) in
+            
+            //Error
+            self.errorButton.isHidden = false
+            self.errorButton.isHighlighted = true
+            
+            self.backgroundView.bringSubview(toFront: self.errorButton)
+            SVProgressHUD.show()
+            self.refreshControl.endRefreshing()
+            print("\n\nNetwork error has occurred\n\n")
         }
         
         
-        task.resume()
     }
     
     
+    func initUIRefreshControl(){
+        //Track the event when tableview is pulled.
+        self.refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        //Add the refresh control to the screen.
+        self.collectionView.insertSubview(refreshControl, at: 0)
+        //To indirectly trigger first network call to server
+        refreshControlAction(refreshControl)
 
+    }
     
     // MARK: - Navigation
 
@@ -176,7 +183,8 @@ class MoviesViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         let cell = sender as! UICollectionViewCell
         let indexPath = collectionView.indexPath(for: cell)
-        let movie = filteredData![indexPath!.row]
+        let movieDictionary = filteredData![indexPath!.row]
+        let movie = Movie(jsonMap: movieDictionary)
         
         let detailViewController = segue.destination as! DetailViewController
         detailViewController.movie = movie
