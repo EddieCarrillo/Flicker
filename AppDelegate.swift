@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
       let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         
+        //Now Playing Navigation Controller
        let nowPlayingNavController = storyBoard.instantiateViewController(withIdentifier: "MovieNavigationController") as! UINavigationController
         nowPlayingNavController.tabBarItem.title = "Now Playing"
         
@@ -31,28 +32,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         nowPlayingNavController.navigationItem.title = "Now Playing"
         
         
-       print("subviews: \(nowPlayingNavController.navigationBar)")
+        nowPlayingNavController.navigationBar.tintColor = secondaryColor
         
+        
+        nowPlayingNavController.tabBarItem.title = "Now Playing"
+           nowPlayingNavController.tabBarItem.image = UIImage(named: "now_playing")
+        
+        
+     //Now Playing view controller
        let nowPlayingViewController = nowPlayingNavController.topViewController as! MoviesViewController
         nowPlayingViewController.title = "Now Playing"
         nowPlayingViewController.endpoint = "now_playing"
-        nowPlayingNavController.tabBarItem.image = UIImage(named: "now_playing")
-        nowPlayingNavController.tabBarItem.title = "Now Playing"
+     
+       
         
+        //Top rated navigation controller
         let topRatedNavController = storyBoard.instantiateViewController(withIdentifier: "MovieNavigationController") as! UINavigationController
         
         topRatedNavController.navigationItem.title = "Now Playing"
-        
+         topRatedNavController.navigationBar.tintColor = secondaryColor
         topRatedNavController.navigationBar.barTintColor = UIColor.black
         topRatedNavController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: secondaryColor]
+        topRatedNavController.tabBarItem.title = "Top Rated"
+        topRatedNavController.tabBarItem.image = UIImage(named: "top_rated")
         
         
-        
+        //Top rated view controler
         let topRatedViewController = topRatedNavController.topViewController as! MoviesViewController
         topRatedViewController.title = "Top Rated"
         topRatedViewController.endpoint = "top_rated"
-        topRatedNavController.tabBarItem.title = "Top Rated"
-        topRatedNavController.tabBarItem.image = UIImage(named: "top_rated")
+        
         
         
 
