@@ -52,6 +52,36 @@ class NetworkAPI{
         task.resume()
     
     }
+    
+    
+    
+    func getMovie(by id: String, successHandler: @escaping (NSDictionary) -> (), errorHandler: @escaping(Error) -> ()){
+        guard let url = URL(string: "\(self.moviesBaseUrl)/\(id)?api_key=\(self.apiKey)") else {
+            errorHandler(NSError(domain: "Could use url.", code: 404, userInfo: nil))
+            return;
+        }
+        
+        let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        
+        let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        
+        let task: URLSessionDataTask = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            if let data = data {
+                if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
+                    let movie = dataDictionary as! NSDictionary
+                    successHandler(movie)
+                    
+                }
+            }else if let error = error{
+                errorHandler(error)
+                
+            }
+        }
+        
+        
+        task.resume()
+        
+    }
 
 
 }
