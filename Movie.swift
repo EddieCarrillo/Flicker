@@ -22,14 +22,50 @@ class Movie {
     var voteCount: Double?
     var originalLanguage: String?
     var genreIds: [Int]?
+    var genreIdsLoaded: [[String: Any]]?
     var backdropPath: String?
+    //New vals
+    var budget: Int?
+    var homepage: String?
+    var imdbId: String?
+    var revenue: Int?
+    var tagline: String?
+    var runTime: Int?
+    
+    var id: Int?
     
     
     init(jsonMap: NSDictionary){
         
-       // print("\n\n\n\n\n____jsonMap____\n\(jsonMap)\n____\n\n\n\n\n")
+      // print("\n\n\n\n\n____jsonMap____\n\(jsonMap)\n____\n\n\n\n\n")
 //        print ("average: \(jsonMap["vote_average"])")
         
+        if let imdbId = jsonMap["imdb_id"] as? String {
+            self.imdbId = imdbId
+        }else {
+            print("Could not extract imdb")
+        }
+        
+        if let revenue = jsonMap["revenue"] as? Int {
+            self.revenue = revenue
+        }else {
+            print("Could not extract revenue")
+        }
+        if let tagline = jsonMap["tagline"] as? String {
+            self.tagline = tagline
+        }else {
+            print("Could not extract tagline.")
+        }
+        if let homepage = jsonMap["homepage"] as? String {
+            self.homepage = homepage
+        }else {
+            print("Could not extract home page.")
+        }
+        if let budget = jsonMap["budget"] as? Int {
+            self.budget = budget
+        }else {
+            print("Could not extract budget")
+        }
         if let path = jsonMap["poster_path"] as? String {
             self.posterPath = path;
         }else {
@@ -40,11 +76,16 @@ class Movie {
         }else {
              print("Could not extract backdrop path from JSON")
         }
-        if let genreIds = jsonMap["genre_ids"] as? [Double] {
+      //  print("[GENRE IDS] \(jsonMap["genre"])")
+        if let genreIds = jsonMap["genre_ids"] as? [Int] {
             self.genreIds = genreIds
+        }else if let genres = jsonMap["genres"] as? [[String: Any]]{
+            self.genreIdsLoaded = genres
         }else {
             print("Could not extract genre ids  from JSON")
+
         }
+      
         if let originalLang = jsonMap["original_language"] as? String {
             self.originalLanguage = originalLang
         }else {
@@ -75,7 +116,7 @@ class Movie {
         }else {
             print("Could not extract vote average.")
         }
-        if let voteCount = jsonMap["vote_count"] as? Int  {
+        if let voteCount = jsonMap["vote_count"] as? Double  {
              self.voteCount = voteCount
         }else {
             print("Could not extact the vote count.")
@@ -84,6 +125,17 @@ class Movie {
             self.title = title
         }else {
            print("Could not extact the title.")
+        }
+        
+        if let runtime = jsonMap["runtime"] as? Int {
+           self.runTime = runtime
+        }else {
+           print("Could not extract the runtime.")
+        }
+        if let id = jsonMap["id"] as? Int {
+            self.id = id
+        }else {
+            print("Could not extract id.")
         }
     }
 
