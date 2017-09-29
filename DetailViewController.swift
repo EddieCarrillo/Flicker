@@ -33,11 +33,12 @@ UIWebViewDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
      
-      videoView.isHidden = true
+     // videoView.isHidden = true
         
         detailView.scrollView.contentSize = CGSize(width: detailView.scrollView.frame.size.width, height: detailView.infoView.frame.origin.y + detailView.infoView.frame.size.height)
         
        detailView.movie = movie
+        sendRequest()
         // Do any additional setup after loading the view.
     }
 
@@ -48,7 +49,22 @@ UIWebViewDelegate{
     
     
     func sendRequest(){
+        let api = NetworkAPI.sharedInstance
+    
         
+        api.getMovie(by: "\(movie.id!)"  , successHandler: { (movieMap: NSDictionary) in
+            
+            //print("[NEWMAP: \(movieMap)]")
+            self.movie = Movie(jsonMap: movieMap)
+            
+            
+            self.detailView.movie = self.movie
+            
+        }) { (error: Error) in
+            print("[ERROR] \(error)")
+        }
+        
+//        api.get
         
         
     }
