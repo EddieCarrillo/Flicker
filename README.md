@@ -1,6 +1,6 @@
 # Project 2 - *Flicker*
 
-**Flicker** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+**Flicker** is a movies app displaying box office and top rated movies from [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **12** hours spent in total
 
@@ -16,8 +16,9 @@ The following **optional** features are implemented:
 
 - [x] Fade in images loaded from the network. (If not cached.)
 - [x] User can search for a movie.
-- [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
-- [ ] Customize the navigation bar.
+- [x] Customize the navigation bar.
+- [x] Used collection view instead of table view
+- [x] Added more information about the movies in seperate "Info View" in the detail view controller
 
 The following **additional** features are implemented:
 
@@ -32,13 +33,14 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/its9Tum.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/n8zskpa.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+Autolayout + UIScrollView was very annoying to deal with.
 
 ## License
 
