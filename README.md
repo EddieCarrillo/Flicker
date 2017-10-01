@@ -6,13 +6,13 @@ Time spent: **12** hours spent in total
 
 ## User Stories
 
-The following **required** functionality is completed:
+The following functionality is completed:
 
 - [x] User can view movie details by tapping on a cell.
 - [x] User can select from a tab bar for either **Now Playing** or **Top Rated** movies.
 - [x] Customize the selection effect of the cell.
 
-The following **optional** features are implemented:
+The following features are implemented:
 
 - [x] Fade in images loaded from the network. (If not cached.)
 - [x] User can search for a movie.
@@ -20,20 +20,11 @@ The following **optional** features are implemented:
 - [x] Used collection view instead of table view
 - [x] Added more information about the movies in seperate "Info View" in the detail view controller
 
-The following **additional** features are implemented:
-
-- [ ] List anything else that you can get done to improve the app functionality!
-
-
-
-1. How to include media like videos in a clean way
-2. How track progress of networking
-
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/n8zskpa.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/n8zskpa.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
